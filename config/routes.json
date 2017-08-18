@@ -5,6 +5,12 @@
       "controller": "Dht11Sensor",
       "action": "findAll",
       "name": "findAllMesures"
+    },
+    {
+      "route" : "/webapp/",
+      "controller" : "View",
+      "action" : "index",
+      "name" : "ViewRoute"
     }
   ],
   "POST": [
