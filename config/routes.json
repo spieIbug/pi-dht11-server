@@ -1,0 +1,22 @@
+{
+  "GET": [
+    {
+      "route": "api/dht11",
+      "controller": "Dht11Sensor",
+      "action": "findAll",
+      "name": "findAllMesures"
+    }
+  ],
+  "POST": [
+    {
+      "route": "api/dht11",
+      "controller": "Dht11Sensor",
+      "action": "save",
+      "name": "saveMesure"
+    }
+  ],
+  "PUT": [
+  ],
+  "DELETE": [
+  ]
+}

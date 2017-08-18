@@ -1,0 +1,17 @@
+{
+  "name": "pi-dht11",
+  "description": "A raspberry pi real time application",
+  "authors": [
+    {
+      "name": "Yacine MEDDAH",
+      "email": "my.meddah@gmail.com"
+    }
+  ],
+  "minimum-stability": "dev",
+  "autoload": {
+    "psr-4": {
+      "Src\\": "src",
+      "bin\\": "bin"
+    }
+  }
+}
