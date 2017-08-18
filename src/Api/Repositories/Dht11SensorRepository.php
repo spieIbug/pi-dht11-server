@@ -31,10 +31,11 @@ class Dht11SensorRepository implements Repository
         return $result;
     }
     public function save($object=[]){
-        $stmt = $this->dbConnector->pdo->prepare('INSERT INTO dht11_sensor_mesures(`temp`, `humidity`, `instant`)  VALUES (:temp, :humidity, :instant)');
+        $stmt = $this->dbConnector->pdo->prepare('INSERT INTO dht11_sensor_mesures(`id`, `temp`, `humidity`, `instant`)  VALUES (:id, :temp, :humidity, :instant)');
+        $stmt->bindParam('id', $object->id, \PDO::PARAM_STR);
         $stmt->bindParam('temp', $object->temp, \PDO::PARAM_STR);
         $stmt->bindParam('humidity', $object->humidity, \PDO::PARAM_STR);
-        $stmt->bindParam('instant', $object->instant, \PDO::PARAM_INT);
+        $stmt->bindParam('instant', $object->instant, \PDO::PARAM_STR);
         RepositoryLauncher::launch($stmt);
         return $this->dbConnector->pdo->lastInsertId();
     }

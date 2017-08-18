@@ -21,11 +21,7 @@ class Dht11SensorController extends JsonController implements Controller
     public function save(){
         $object = parent::getDataFromJsonHeader();
         $result = $this->service->save($object);
-        if ($result==0){
-            throw new \Exception("Couldn't save");
-        } else {
-            $this->respondSuccess("sensor mesure saved", $result);
-        }
+        $this->respondSuccess("sensor mesure saved", $result);
     }
 
     public function update()
