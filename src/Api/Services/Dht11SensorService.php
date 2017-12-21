@@ -26,8 +26,8 @@ class Dht11SensorService implements Service
     private function __construct (){
         $this->repository = Dht11SensorRepository::getInstance();
     }
-    public function findAll(){
-        $objects = $this->repository->findAll();
+    public function findAll($limit = 50){
+        $objects = $this->repository->findAll($limit);
         return array_reverse($objects);
     }
     public function findOne($id){

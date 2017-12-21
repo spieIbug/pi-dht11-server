@@ -15,10 +15,16 @@
     </style>
 </head>
 <body>
-
-<div style="width:75%;">
-    <canvas id="canvas"></canvas>
-</div>
+    <div class="form-inline">
+        <div class="form-group col-md-6">
+            <label for="limit">Limit data</label>
+            <input type="number" class="form-control" id="limit" min="10" max="1000">
+        </div>
+        <button class="btn btn-primary" onclick="updateLimit()">Valider</button>
+    </div>
+    <div style="width:75%;">
+        <canvas id="canvas"></canvas>
+    </div>
 
 <script src="node_modules/jquery/dist/jquery.min.js"></script>
 <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>

@@ -10,8 +10,8 @@ class Dht11SensorController extends JsonController implements Controller
         parent::__construct();
         $this->service = Dht11SensorService::getInstance();
     }
-    public function findAll(){
-        $objects = $this->service->findAll();
+    public function findAll($limit = 50){
+        $objects = $this->service->findAll($limit);
         $this->respondSuccess("sensors mesures", $objects);
     }
     public function findOne($id){

@@ -15,8 +15,10 @@ class Dht11SensorRepository implements Repository
     private function __construct (){
         $this->dbConnector = DbConnector::getInstance();
     }
-    public function findAll(){
-        $stmt = $this->dbConnector->pdo->prepare('SELECT `id`, `temp`, `humidity`, `instant` FROM `dht11_sensor_mesures` order by `instant` desc limit 50');
+    public function findAll($limit = 50){
+        $stmt = $this->dbConnector->pdo->prepare('SELECT `id`, `temp`, `humidity`, `instant` FROM `dht11_sensor_mesures` order by `instant` desc limit :maxRows');
+        $limit = intval($limit, 10);
+        $stmt->bindParam(':maxRows', $limit, \PDO::PARAM_INT);
         RepositoryLauncher::launch($stmt);
         $stmt->setFetchMode(\PDO::FETCH_ASSOC);
         $result = $stmt->fetchAll();

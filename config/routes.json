@@ -7,6 +7,12 @@
       "name": "findAllMesures"
     },
     {
+      "route": "api/dht11/:limit",
+      "controller": "Dht11Sensor",
+      "action": "findAll",
+      "name": "findAllMesures"
+    },
+    {
       "route" : "/webapp/",
       "controller" : "View",
       "action" : "index",

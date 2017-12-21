@@ -15,6 +15,12 @@ window.randomScalingFactor = function() {
 var dates = [];
 var temperatures = [];
 var humiditys = [];
+var limit = 50;
+
+function updateLimit() {
+    limit = document.getElementById("limit").value;
+}
+
 function updateData(response) {
     dates = [];
     temperatures = [];
@@ -26,7 +32,7 @@ function updateData(response) {
     }
 }
 
-$.get("/pi/api/dht11", updateData);
+$.get("/pi/api/dht11/" + limit, updateData);
 var config = {
     type: 'line',
     data: {
@@ -81,7 +87,7 @@ window.onload = function() {
     var ctx = document.getElementById("canvas").getContext("2d");
     window.myLine = new Chart(ctx, config);
     setInterval(function(){
-        $.get("/pi/api/dht11", updateData);
+        $.get("/pi/api/dht11/" + limit, updateData);
         config.data.labels = dates;
         config.data.datasets.forEach(function(dataset) {
             if (dataset.label==="Temperature") {
@@ -91,5 +97,5 @@ window.onload = function() {
             }
         });
         window.myLine.update();
-    }, 1000);
+    }, 1000).bind(limit);
 };
