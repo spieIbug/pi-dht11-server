@@ -18,7 +18,19 @@ var humiditys = [];
 var limit = 50;
 
 function updateLimit() {
-    limit = document.getElementById("limit").value;
+    var currentLimit = parseInt(document.getElementById("limit").value);
+    var min = document.getElementById("limit").min;
+    var max = document.getElementById("limit").max;
+    
+    if (!currentLimit) {
+        toastr.error("The given value is not a number >.<");
+        return;
+    }
+    if (currentLimit < parseInt(min) || currentLimit > parseInt(max)) {
+        toastr.error("The given value is out of range >.<");
+        return;
+    }
+    limit = currentLimit;
 }
 
 function updateData(response) {
@@ -97,5 +109,5 @@ window.onload = function() {
             }
         });
         window.myLine.update();
-    }, 1000).bind(limit);
+    }.bind(limit), 1000);
 };
