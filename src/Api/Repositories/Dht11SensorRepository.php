@@ -16,7 +16,7 @@ class Dht11SensorRepository implements Repository
         $this->dbConnector = DbConnector::getInstance();
     }
     public function findAll(){
-        $stmt = $this->dbConnector->pdo->prepare('SELECT `id`, `temp`, `humidity`, `instant` FROM `dht11_sensor_mesures`');
+        $stmt = $this->dbConnector->pdo->prepare('SELECT `id`, `temp`, `humidity`, `instant` FROM `dht11_sensor_mesures` order by `instant` desc limit 50');
         RepositoryLauncher::launch($stmt);
         $stmt->setFetchMode(\PDO::FETCH_ASSOC);
         $result = $stmt->fetchAll();

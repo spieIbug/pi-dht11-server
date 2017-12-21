@@ -1,0 +1,21 @@
+{
+  "name": "raspidht11",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "chart.js": "^2.7.1",
+    "jquery": "^3.2.1",
+    "moment": "^2.20.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "raspberry"
+  ],
+  "author": "Yacine <my.meddah@gmail.com>",
+  "license": "ISC"
+}

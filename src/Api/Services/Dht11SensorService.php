@@ -28,7 +28,7 @@ class Dht11SensorService implements Service
     }
     public function findAll(){
         $objects = $this->repository->findAll();
-        return $objects;
+        return array_reverse($objects);
     }
     public function findOne($id){
         $object = $this->repository->findOne($id);
