@@ -25,6 +25,12 @@
       "controller": "Dht11Sensor",
       "action": "save",
       "name": "saveMesure"
+    },
+    {
+      "route": "api/auth",
+      "controller": "Authentication",
+      "action": "authenticate",
+      "name": "authenticationControl"
     }
   ],
   "PUT": [

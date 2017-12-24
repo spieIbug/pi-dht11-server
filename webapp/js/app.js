@@ -95,6 +95,13 @@ var config = {
         }
     }
 };
+function on() {
+    $.get("http://172.16.7.57/1.php");
+}
+function off() {
+    $.get("http://172.16.7.57/0.php");
+}
+
 window.onload = function() {
     var ctx = document.getElementById("canvas").getContext("2d");
     window.myLine = new Chart(ctx, config);
