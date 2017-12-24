@@ -15,6 +15,24 @@ window.randomScalingFactor = function() {
 var dates = [];
 var temperatures = [];
 var humiditys = [];
+var limit = 50;
+
+function updateLimit() {
+    var currentLimit = parseInt(document.getElementById("limit").value);
+    var min = document.getElementById("limit").min;
+    var max = document.getElementById("limit").max;
+    
+    if (!currentLimit) {
+        toastr.error("The given value is not a number >.<");
+        return;
+    }
+    if (currentLimit < parseInt(min) || currentLimit > parseInt(max)) {
+        toastr.error("The given value is out of range >.<");
+        return;
+    }
+    limit = currentLimit;
+}
+
 function updateData(response) {
     dates = [];
     temperatures = [];
@@ -26,7 +44,7 @@ function updateData(response) {
     }
 }
 
-$.get("/pi/api/dht11", updateData);
+$.get("/pi/api/dht11/" + limit, updateData);
 var config = {
     type: 'line',
     data: {
@@ -77,11 +95,18 @@ var config = {
         }
     }
 };
+function on() {
+    $.get("http://172.16.7.57/1.php");
+}
+function off() {
+    $.get("http://172.16.7.57/0.php");
+}
+
 window.onload = function() {
     var ctx = document.getElementById("canvas").getContext("2d");
     window.myLine = new Chart(ctx, config);
     setInterval(function(){
-        $.get("/pi/api/dht11", updateData);
+        $.get("/pi/api/dht11/" + limit, updateData);
         config.data.labels = dates;
         config.data.datasets.forEach(function(dataset) {
             if (dataset.label==="Temperature") {
@@ -91,5 +116,5 @@ window.onload = function() {
             }
         });
         window.myLine.update();
-    }, 1000);
+    }.bind(limit), 1000);
 };

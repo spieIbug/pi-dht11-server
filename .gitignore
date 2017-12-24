@@ -1,3 +1,4 @@
 .idea/
 vendor/
 webapp/node_modules/
+config/database.json

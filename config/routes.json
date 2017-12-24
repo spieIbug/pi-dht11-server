@@ -7,6 +7,12 @@
       "name": "findAllMesures"
     },
     {
+      "route": "api/dht11/:limit",
+      "controller": "Dht11Sensor",
+      "action": "findAll",
+      "name": "findAllMesures"
+    },
+    {
       "route" : "/webapp/",
       "controller" : "View",
       "action" : "index",
@@ -19,6 +25,12 @@
       "controller": "Dht11Sensor",
       "action": "save",
       "name": "saveMesure"
+    },
+    {
+      "route": "api/auth",
+      "controller": "Authentication",
+      "action": "authenticate",
+      "name": "authenticationControl"
     }
   ],
   "PUT": [

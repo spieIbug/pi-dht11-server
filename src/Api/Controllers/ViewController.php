@@ -8,6 +8,11 @@ class ViewController
     {
     }
     public function index(){
-        include('./webapp/index.html');
+        session_start();
+        if (isset($_SESSION['id'])) {
+            include('./webapp/index.html');
+        } else {
+            include('./webapp/login.html');
+        }
     }
 }
