@@ -17,6 +17,18 @@
       "controller" : "View",
       "action" : "index",
       "name" : "ViewRoute"
+    },
+    {
+      "route" : "/webapp/map",
+      "controller" : "View",
+      "action" : "map",
+      "name" : "MapRoute"
+    },
+    {
+      "route": "api/logout",
+      "controller": "Authentication",
+      "action": "logout",
+      "name": "logoutControl"
     }
   ],
   "POST": [

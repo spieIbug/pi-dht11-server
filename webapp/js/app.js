@@ -98,6 +98,11 @@ var config = {
 function on() {
     $.get("http://172.16.7.57/1.php");
 }
+
+function launch() {
+    $.get("http://172.16.7.57/launch.php");
+}
+
 function off() {
     $.get("http://172.16.7.57/0.php");
 }

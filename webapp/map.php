@@ -10,6 +10,21 @@
     <title>DHT11 sensor capture</title>
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="node_modules/toastr/build/toastr.min.css">
+    <link rel="stylesheet" type="text/css" href="lib/ow/example/leaflet/leaflet.css" />
+    <link rel="stylesheet" type="text/css" href="lib/ow/leaflet-openweathermap.css" />
+    <link rel="stylesheet" type="text/css" href="lib/ow/example/files/map.css" />
+    <script src="lib/ow/example/leaflet/leaflet.js"></script>
+    <script src="lib/ow/example/leaflet/Permalink.js"></script>
+    <script src="lib/ow/example/leaflet/Permalink.Layer.js"></script>
+    <script src="lib/ow/example/leaflet/Permalink.Overlay.js"></script>
+    <script src="lib/ow/example/leaflet/leaflet-flattrbutton.js"></script>
+    <script src="lib/ow/leaflet-openweathermap.js"></script>
+    <!--[if lt IE 9]><script type="text/javascript" src="files/excanvas.js"></script><![endif]-->
+    <link rel="stylesheet" type="text/css" href="lib/ow/example/leaflet/leaflet-languageselector.css" />
+    <script src="lib/ow/example/leaflet/leaflet-languageselector.js"></script>
+    <script src="lib/ow/example/files/map_i18n.js"></script>
+    <script src="lib/ow/example/files/map.js"></script>
+  
     <style>
         canvas {
             -moz-user-select: none;
@@ -23,16 +38,7 @@
     <![endif]-->
 </head>
 <body class="hold-transition skin-black sidebar-mini">
-    
-    
-
-
-
-
-
-<!-- Site wrapper -->
 <div class="wrapper">
-
         <header class="main-header">
           <a href="#" class="logo">
             <span class="logo-mini"><b>PI</b>Wt</span>
@@ -49,14 +55,22 @@
               <ul class="nav navbar-nav">
                 <li class="dropdown user user-menu">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                    <span class="hidden-xs">Usename</span>
+                    <span class="hidden-xs"><?php echo $_SESSION["username"]; ?></span>
                   </a>
                   <ul class="dropdown-menu">
                     <li class="user-header">
                       <p>
-                        Alexander Pierce - Web Developer
-                        <small>Member since Nov. 2012</small>
+                        <?php echo $_SESSION["username"]; ?>
+                        <small>Member since Dec. 2017</small>
                       </p>
+                    </li>
+                    <li class="user-footer">
+                      <div class="pull-left">
+                        <a href="#" class="btn btn-default btn-flat">Profile</a>
+                      </div>
+                      <div class="pull-right">
+                        <a href="../api/logout" class="btn btn-default btn-flat">Sign out</a>
+                      </div>
                     </li>
                   </ul>
                 </li>
@@ -64,23 +78,15 @@
             </div>
           </nav>
         </header>
-      
         <aside class="main-sidebar">
           <section class="sidebar">
             <ul class="sidebar-menu" data-widget="tree">
-              <li class="header">MAIN NAVIGATION</li>
-              <li class="treeview">
-                <a href="#">
-                  <i class="fa fa-dashboard"></i> <span>Dashboard</span>
-                  <span class="pull-right-container">
-                    <i class="fa fa-angle-left pull-right"></i>
-                  </span>
-                </a>
-                <ul class="treeview-menu">
-                  <li><a href="../../index.html"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
-                  <li><a href="../../index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
-                </ul>
-              </li>
+                <li>
+                  <a href="../"><i class="fa fa-home"></i> <span>Home</span></a>
+                </li>
+                <li class="bg-green">
+                  <a><i class="fa fa-map"></i> <span>Map</span></a>
+                </li>
             </ul>
           </section>
         </aside>
@@ -88,44 +94,25 @@
           <section class="content-header">
             <h1>
               Rasperry PI Weather
-              <small>DHT11 visualization</small>
+              <small>Weather map visualization</small>
             </h1>
             <ol class="breadcrumb">
-              <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+              <li><a href="#"><i class="fa fa-map"></i> Map</a></li>
             </ol>
           </section>
       
           <!-- Main content -->
           <section class="content">
-      
-            <!-- Default box -->
-            <div class="box">
-              <div class="box-header with-border">
-                <h3 class="box-title">Realtime visualization</h3>
-      
-                <div class="box-tools pull-right">
-                  <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
-                          title="Collapse">
-                    <i class="fa fa-minus"></i></button>
-                  <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
-                    <i class="fa fa-times"></i></button>
+              <div class="col-md-12">
+                <div class="box box-default box-solid">
+                  <div class="box-header with-border">
+                      <h3 class="box-title">Map</h3>
+                  </div>
+                  <div class="box-body" style="height:100vh">
+                      <div id="map"></div>  
+                  </div>
                 </div>
               </div>
-              <div class="box-body">
-                    <div class="form-inline">
-                        <div class="form-group col-md-6">
-                            <label for="limit">Limit data</label>
-                            <input type="number" class="form-control" id="limit" min="10" max="1000">
-                        </div>
-                        <button class="btn btn-primary" onclick="updateLimit()">Valider</button>
-                        <button  class="btn btn-success" onclick="on()">On</button>
-                        <button  class="btn btn-danger" onclick="off()">Off</button>
-                    </div>
-                    <div style="width:75%;">
-                        <canvas id="canvas"></canvas>
-                    </div>                    
-              </div>
-            </div>
           </section>
         </div>
         <footer class="main-footer">
@@ -142,8 +129,8 @@
     <script src="node_modules/moment/min/moment.min.js"></script>
     <script src="node_modules/toastr/build/toastr.min.js"></script>
     <script src="node_modules/chart.js/dist/Chart.min.js"></script>
-    <script src="js/app.js"></script>
     <script>
+    initMap();
     $(document).ready(function () {
         $('.sidebar-menu').tree()
     })
